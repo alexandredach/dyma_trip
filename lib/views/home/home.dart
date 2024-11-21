@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'city_card.dart';
+import 'widgets/city_card.dart';
 
 class Home extends StatefulWidget {
   @override

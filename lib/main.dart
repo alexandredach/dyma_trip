@@ -1,4 +1,5 @@
-import 'package:dyma_trip/home.dart';
+import 'package:dyma_trip/views/city/city.dart';
+import 'package:dyma_trip/views/home/home.dart';
 import 'package:flutter/material.dart';
 
 main() {
@@ -11,7 +12,8 @@ class DymaTrip extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      // home: Home(),
+      home: City(),
     );
   }
 }
