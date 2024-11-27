@@ -1,9 +1,10 @@
-import 'package:dyma_trip/views/city/widgets/activity_card.dart';
+import 'package:dyma_trip/views/city/widgets/trip_activity_list.dart';
 import 'package:flutter/material.dart';
+import './widgets/activity_list.dart';
+import './widgets/trip_overview.dart';
 import '../../models/activity.model.dart';
 import '../../datas/data.dart' as data;
 import '../../models/trip.model.dart';
-import 'package:intl/intl.dart';
 
 class City extends StatefulWidget {
   City({super.key});
@@ -16,6 +17,7 @@ class City extends StatefulWidget {
 
 class _CityState extends State<City> {
   Trip myTrip = Trip(activities: [], city: 'Paris', date: DateTime.now());
+  int index = 0;
 
   void setDate() {
     showDatePicker(
@@ -32,6 +34,12 @@ class _CityState extends State<City> {
     });
   }
 
+  void switchIndex(newIndex) {
+    setState(() {
+      index = newIndex;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +47,7 @@ class _CityState extends State<City> {
         foregroundColor: Colors.white,
         backgroundColor: Colors.lightBlue,
         leading: Icon(Icons.chevron_left),
-        title: Text('Paris'),
+        title: Text('Organisation du voyage'),
         actions: const [
           Icon(Icons.more_vert),
         ],
@@ -47,35 +55,20 @@ class _CityState extends State<City> {
       body: Container(
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.all(10),
-              height: 200,
-              color: Colors.white,
-              child: Column(children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(DateFormat("dd/MM/yyyy").format(myTrip.date),
-                      ),
-                    ),
-                    ElevatedButton(
-                        onPressed: setDate,
-                        child: const Text('Sélectionner une date')
-                    ),
-                  ],
-                )
-              ],),
-            ),
+            TripOverview(setDate: setDate, trip: myTrip),
             Expanded(
-              child: GridView.count(
-                mainAxisSpacing: 1,
-                crossAxisSpacing: 1,
-                crossAxisCount: 2,
-                children: widget.activities.map((activity) => ActivityCard(activity: activity)).toList(),
-              ),
+              child: index == 0 ? ActivityList(activities: widget.activities) : TripActivityList(),
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: index,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Découverte',),
+          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Mes activités',)
+        ],
+        onTap: switchIndex,
       ),
     );
   }
