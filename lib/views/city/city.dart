@@ -16,8 +16,21 @@ class City extends StatefulWidget {
 }
 
 class _CityState extends State<City> {
-  Trip myTrip = Trip(activities: [], city: 'Paris', date: DateTime.now());
-  int index = 0;
+  late Trip myTrip;
+  late int index;
+
+  @override
+  void initState() {
+    super.initState();
+    index = 0;
+    myTrip = Trip(activities: [], city: 'Paris', date: null);
+  }
+
+  List<Activity> get tripActivities {
+    return widget.activities
+        .where((activity) => myTrip.activities.contains(activity.id))
+        .toList();
+  }
 
   void setDate() {
     showDatePicker(
@@ -40,6 +53,21 @@ class _CityState extends State<City> {
     });
   }
 
+  void toggleActivity(String id) {
+    setState(() {
+      myTrip.activities.contains(id)
+          ? myTrip.activities.remove(id)
+          : myTrip.activities.add(id);
+      print(myTrip.activities);
+    });
+  }
+  
+  void deleteTripActivity(String id) {
+    setState(() {
+      myTrip.activities.remove(id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +85,16 @@ class _CityState extends State<City> {
           children: [
             TripOverview(setDate: setDate, trip: myTrip),
             Expanded(
-              child: index == 0 ? ActivityList(activities: widget.activities) : TripActivityList(),
+              child: index == 0
+                ? ActivityList(
+                    activities: widget.activities,
+                    selectedActivities: myTrip.activities,
+                    toggleActivity: toggleActivity
+                )
+                : TripActivityList(
+                  activities: tripActivities,
+                  deleteTripActivity: deleteTripActivity,
+                ),
             ),
           ],
         ),

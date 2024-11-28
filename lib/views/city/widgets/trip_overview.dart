@@ -11,33 +11,35 @@ class TripOverview extends StatelessWidget {
     return 0;
   }
 
-  TripOverview({ required this.setDate, required this.trip });
+  const TripOverview({ super.key, required this.setDate, required this.trip });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       height: 200,
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Paris',
             style: TextStyle(
                 fontSize: 25,
                 decoration: TextDecoration.underline
             ),
           ),
-          SizedBox(
+          const SizedBox(
               height: 30
           ),
           Row(
             children: [
               Expanded(
                 child: Text(
-                  DateFormat("dd/MM/yyyy").format(trip.date),
-                  style: TextStyle(fontSize: 20),
+                  trip.date != null
+                      ? DateFormat("dd/MM/yyyy").format(trip.date!)
+                      : 'Choisissez une date',
+                  style: const TextStyle(fontSize: 15),
                 ),
               ),
               ElevatedButton(
@@ -46,20 +48,20 @@ class TripOverview extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
               height: 30
           ),
           Row(
             children: [
-              Expanded(
+              const Expanded(
                   child: Text(
                     'Montant / personne',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 15),
                   )
               ),
               Text(
                 '$amount €',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
             ],
           ),
