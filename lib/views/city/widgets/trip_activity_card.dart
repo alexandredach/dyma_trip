@@ -43,10 +43,24 @@ class _TripActivityCardState extends State<TripActivityCard> {
             style: Theme.of(context).textTheme.bodySmall),
         subtitle: Text(widget.activity.city),
         trailing: IconButton(
-          icon: Icon(Icons.delete),
+          icon: const Icon(Icons.delete),
           color: Colors.red,
           onPressed: () {
             widget.deleteTripActivity(widget.activity.id);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text('Activité supprimée'),
+                backgroundColor: Colors.redAccent,
+                duration: const Duration(seconds: 3),
+                action: SnackBarAction(
+                  label: 'Annuler',
+                  textColor: Colors.white,
+                  onPressed: () {
+                    print('undo');
+                  },
+                ),
+              ),
+            );
           },
         ),
       ),

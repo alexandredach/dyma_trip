@@ -1,7 +1,9 @@
+import 'package:dyma_trip/widgets/dyma_drawer.dart';
 import 'package:flutter/material.dart';
+import '../../data/data.dart' as data;
+import '../../views/home/home_view.dart';
 import '../../views/city/widgets/trip_activity_list.dart';
 import '../../models/city_model.dart';
-import '../../data/data.dart' as data;
 import './widgets/activity_list.dart';
 import './widgets/trip_overview.dart';
 import '../../models/activity_model.dart';
@@ -48,6 +50,13 @@ class _CityViewState extends State<CityView> {
         .toList();
   }
 
+  double get amount {
+    return myTrip.activities.fold(0.0, (prev, element) {
+      final activity = widget.activities.firstWhere((activity) => activity.id == element);
+      return prev + activity.price;
+    });
+  }
+
   void setDate() {
     showDatePicker(
         context: context,
@@ -83,23 +92,49 @@ class _CityViewState extends State<CityView> {
     });
   }
 
+  void saveTrip() async {
+    final result = await showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: Text('Voulez-vous enregistrer ces activités ?'),
+          contentPadding: EdgeInsets.all(20),
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context, 'save');
+                  },
+                  child: const Text('Enregistrer', style: TextStyle(color: Colors.white),),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context, 'cancel');
+                  },
+                  child: const Text('Annuler', style: TextStyle(color: Colors.white),),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+    Navigator.pushNamed(context, HomeView.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         // foregroundColor: Colors.white,
         // backgroundColor: Colors.lightBlue,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.chevron_left)
-        ),
         title: Text('Organisation du voyage'),
-        actions: const [
-          Icon(Icons.more_vert),
-        ],
       ),
+      drawer: DymaDrawer(),
       body: Container(
         child: widget.showContext(
           context: context,
@@ -107,7 +142,8 @@ class _CityViewState extends State<CityView> {
             TripOverview(
                 cityName: widget.city.name,
                 setDate: setDate,
-                trip: myTrip
+                trip: myTrip,
+                amount: amount,
             ),
             Expanded(
               child: index == 0
@@ -123,6 +159,10 @@ class _CityViewState extends State<CityView> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.directions_walk),
+        onPressed: saveTrip,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,

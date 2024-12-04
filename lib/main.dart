@@ -24,7 +24,7 @@ class DymaTrip extends StatelessWidget {
         primarySwatch: Colors.red,
         textTheme: const TextTheme(
             bodySmall: TextStyle(
-                color: Colors.green,
+                color: Colors.blueGrey,
                 fontSize: 15),
         ),
       ),
