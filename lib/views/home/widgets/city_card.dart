@@ -1,76 +1,70 @@
+import 'package:dyma_trip/views/city/city_view.dart';
+
+import '../../../models/city_model.dart';
 import 'package:flutter/material.dart';
 
 class CityCard extends StatelessWidget {
-  final String name;
-  final String image;
-  final bool checked;
-  final VoidCallback updateChecked;
+  final City city;
 
-  CityCard({ required this.name, required this.image, required this.checked, required this.updateChecked });
+  CityCard({ required this.city });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      child: InkWell(
-        onTap: updateChecked,
-        child: Container(
-          height: 150,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Ink.image(
-                fit: BoxFit.cover,
-                image: AssetImage(image),
-                ),
-              // // Image Transparency
-              Container(
-                width: double.infinity,
-                height: 400,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Colors.transparent, // Transparency begins
-                      Colors.black.withOpacity(0.7), // Transparency opacity
-                    ],
+      child: Container(
+        height: 150,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Ink.image(
+              fit: BoxFit.cover,
+              image: AssetImage(city.image),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/city',
+                    arguments: city,
+                  );
+                },
+              ),
+            ),
+            // Image left black fade for city name
+            // Container(
+            //   width: double.infinity,
+            //   height: 400,
+            //   decoration: BoxDecoration(
+            //     gradient: LinearGradient(
+            //       begin: Alignment.bottomCenter,
+            //       end: Alignment.topLeft,
+            //       colors: [
+            //         Colors.transparent, // Transparency begins
+            //         Colors.black.withOpacity(0.7), // Transparency opacity
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            Positioned(
+              top: 10,
+              left: 10,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                // Grey box with border radius for city name
+                // decoration: BoxDecoration(
+                //   color: Colors.black54,
+                //   borderRadius: BorderRadius.circular(20),
+                // ),
+                child: Text(
+                  city.name,
+                  style: const TextStyle(
+                    fontSize: 35,
+                    color: Colors.white,
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            checked ? Icons.star : Icons.star_border,
-                            size: 40,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          name,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 30
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

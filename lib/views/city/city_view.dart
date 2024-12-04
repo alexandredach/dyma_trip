@@ -1,23 +1,39 @@
-import 'package:dyma_trip/views/city/widgets/trip_activity_list.dart';
 import 'package:flutter/material.dart';
+import '../../views/city/widgets/trip_activity_list.dart';
+import '../../models/city_model.dart';
+import '../../data/data.dart' as data;
 import './widgets/activity_list.dart';
 import './widgets/trip_overview.dart';
-import '../../models/activity.model.dart';
-import '../../datas/data.dart' as data;
-import '../../models/trip.model.dart';
+import '../../models/activity_model.dart';
+import '../../models/trip_model.dart';
 
-class City extends StatefulWidget {
-  City({super.key});
-
+class CityView extends StatefulWidget {
+  static const String routeName = '/city';
   final List<Activity> activities = data.activities;
+  final City city;
+
+  CityView({super.key, required this.city});
+
+  showContext({required BuildContext context, required List<Widget> children}) {
+    final orientation = MediaQuery.of(context).orientation;
+    if (orientation == Orientation.landscape) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: children,
+      );
+    } else {
+      return Column(children: children);
+    }
+  }
 
   @override
-  State<City> createState() => _CityState();
+  State<CityView> createState() => _CityViewState();
 }
 
-class _CityState extends State<City> {
+class _CityViewState extends State<CityView> {
   late Trip myTrip;
   late int index;
+  late List<Activity> activities;
 
   @override
   void initState() {
@@ -34,7 +50,7 @@ class _CityState extends State<City> {
 
   void setDate() {
     showDatePicker(
-        context: context, 
+        context: context,
         initialDate: DateTime.now().add(Duration(days: 1)),
         firstDate:  DateTime.now(),
         lastDate: DateTime.now().add(Duration(days: 365))
@@ -58,10 +74,9 @@ class _CityState extends State<City> {
       myTrip.activities.contains(id)
           ? myTrip.activities.remove(id)
           : myTrip.activities.add(id);
-      print(myTrip.activities);
     });
   }
-  
+
   void deleteTripActivity(String id) {
     setState(() {
       myTrip.activities.remove(id);
@@ -72,18 +87,28 @@ class _CityState extends State<City> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.lightBlue,
-        leading: Icon(Icons.chevron_left),
+        // foregroundColor: Colors.white,
+        // backgroundColor: Colors.lightBlue,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.chevron_left)
+        ),
         title: Text('Organisation du voyage'),
         actions: const [
           Icon(Icons.more_vert),
         ],
       ),
       body: Container(
-        child: Column(
+        child: widget.showContext(
+          context: context,
           children: [
-            TripOverview(setDate: setDate, trip: myTrip),
+            TripOverview(
+                cityName: widget.city.name,
+                setDate: setDate,
+                trip: myTrip
+            ),
             Expanded(
               child: index == 0
                 ? ActivityList(
