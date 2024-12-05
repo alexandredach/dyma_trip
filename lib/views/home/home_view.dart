@@ -5,19 +5,15 @@ import '../../models/city_model.dart';
 
 class HomeView extends StatefulWidget {
   static const String routeName = '/';
-  const HomeView({super.key});
+  final List<City> cities;
+
+  HomeView({super.key, required this.cities });
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
-  List cities = [
-    City(name: 'Lyon', image: 'assets/images/lyon.jpg'),
-    City(name: 'Nice', image: 'assets/images/nice.jpg'),
-    City(name: 'Paris', image: 'assets/images/paris.jpg'),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +28,7 @@ class _HomeViewState extends State<HomeView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ...cities.map( (city) {
+            ...widget.cities.map( (city) {
               return CityCard(
                 city: city
               );

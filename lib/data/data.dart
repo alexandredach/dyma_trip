@@ -1,100 +1,251 @@
-import '../models/activity_model.dart';
+import 'package:dyma_trip/views/city/city_view.dart';
 
-List<Activity> activities = [
-  Activity(
-      image: 'assets/images/activities/tour-eiffel.jpg',
+import '../models/activity_model.dart';
+import '../models/city_model.dart';
+
+List<City> cities = [
+  City(name: 'Lyon', image: 'assets/images/lyon.jpg', activities: [
+    Activity(
+      image: 'assets/images/activities/lyon/notre-dame-fourviere.jpg',
+      name: 'Basilique Notre-Dame de Fourvière',
+      id: 'l1',
+      city: 'Lyon',
+      price: 0,
+    ),
+    Activity(
+      image: 'assets/images/activities/lyon/traboules.jpg',
+      name: 'Le Vieux Lyon et ses traboules',
+      id: 'l2',
+      city: 'Lyon',
+      price: 0,
+    ),
+    Activity(
+      image: 'assets/images/activities/lyon/musee-confluences.jpg',
+      name: 'Musée des Confluences',
+      id: 'l3',
+      city: 'Lyon',
+      price: 9.00,
+    ),
+    Activity(
+      image: 'assets/images/activities/lyon/parc-tete-or.jpg',
+      name: 'Parc de la Tête d’Or',
+      id: 'l4',
+      city: 'Lyon',
+      price: 0,
+    ),
+    Activity(
+      image: 'assets/images/activities/lyon/atelier-chefs.jpg',
+      name: 'Atelier de gastronomie lyonnaise',
+      id: 'l5',
+      city: 'Lyon',
+      price: 45.00,
+    ),
+    Activity(
+      image: 'assets/images/activities/lyon/canuts.jpg',
+      name: 'Fresques murales des Canuts',
+      id: 'l6',
+      city: 'Lyon',
+      price: 0,
+    ),
+    Activity(
+      image: 'assets/images/activities/lyon/funiculaire.jpg',
+      name: 'Funiculaire de Fourvière',
+      id: 'l7',
+      city: 'Lyon',
+      price: 3.00,
+    ),
+    Activity(
+      image: 'assets/images/activities/lyon/lugdunum.jpg',
+      name: 'Théâtre antique de Lugdunum',
+      id: 'l8',
+      city: 'Lyon',
+      price: 7.00,
+    ),
+    Activity(
+      image: 'assets/images/activities/lyon/lumiere.jpg',
+      name: 'Institut Lumière',
+      id: 'l9',
+      city: 'Lyon',
+      price: 6.50,
+    ),
+    Activity(
+      image: 'assets/images/activities/lyon/saone.jpg',
+      name: 'Croisière sur la Saône',
+      id: 'l10',
+      city: 'Lyon',
+      price: 12.00,
+    ),
+  ]),
+  City(name: 'Nice', image: 'assets/images/nice.jpg', activities: [
+    Activity(
+      image: 'assets/images/activities/nice/anglais.jpg',
+      name: 'Promenade des Anglais',
+      id: 'n1',
+      city: 'Nice',
+      price: 0,
+    ),
+    Activity(
+      image: 'assets/images/activities/nice/chateau.jpg',
+      name: 'Château de Nice',
+      id: 'n2',
+      city: 'Nice',
+      price: 0,
+    ),
+    Activity(
+      image: 'assets/images/activities/nice/vieux.jpg',
+      name: 'Vieux Nice',
+      id: 'n3',
+      city: 'Nice',
+      price: 0,
+    ),
+    Activity(
+      image: 'assets/images/activities/nice/chagall.jpg',
+      name: 'Musée Marc Chagall',
+      id: 'n4',
+      city: 'Nice',
+      price: 10.00,
+    ),
+    Activity(
+      image: 'assets/images/activities/nice/saleya.jpg',
+      name: 'Marché du Cours Saleya',
+      id: 'n5',
+      city: 'Nice',
+      price: 0,
+    ),
+    Activity(
+      image: 'assets/images/activities/nice/anges.jpg',
+      name: 'Plages de la Baie des Anges',
+      id: 'n6',
+      city: 'Nice',
+      price: 0,
+    ),
+    Activity(
+      image: 'assets/images/activities/nice/matisse.jpg',
+      name: 'Musée Matisse',
+      id: 'n7',
+      city: 'Nice',
+      price: 10.00,
+    ),
+    Activity(
+      image: 'assets/images/activities/nice/cathedrale.jpg',
+      name: 'Cathédrale Orthodoxe Saint-Nicolas',
+      id: 'n8',
+      city: 'Nice',
+      price: 5.00,
+    ),
+    Activity(
+      image: 'assets/images/activities/nice/cap-ferrat.jpg',
+      name: 'Excursion vers le Cap Ferrat',
+      id: 'n9',
+      city: 'Nice',
+      price: 15.00,
+    ),
+    Activity(
+      image: 'assets/images/activities/nice/phoenix.jpg',
+      name: 'Parc Phoenix',
+      id: 'n10',
+      city: 'Nice',
+      price: 3.00,
+    ),
+  ]),
+  City(name: 'Paris', image: 'assets/images/paris.jpg', activities: [
+    Activity(
+      image: 'assets/images/activities/paris/tour-eiffel.jpg',
       name: 'La Tour Eiffel',
-      id: 'a1',
+      id: 'p1',
       city: 'Paris',
       price: 25.00,
-  ),
-  Activity(
-      image: 'assets/images/activities/louvre.jpg',
+    ),
+    Activity(
+      image: 'assets/images/activities/paris/louvre.jpg',
       name: 'Le Louvre',
-      id: 'a2',
+      id: 'p2',
       city: 'Paris',
       price: 18.00,
-  ),
-  Activity(
-      image: 'assets/images/activities/chaumont.jpg',
-      name: 'Les buttes Chaumont',
-      id: 'a3',
-      city: 'Paris',
-      price: 0),
-
-  Activity(
-      image: 'assets/images/activities/dame.jpg',
-      name: 'Notre Dame',
-      id: 'a4',
-      city: 'Paris',
-      price: 0),
-  Activity(
-      image: 'assets/images/activities/defense.jpg',
-      name: 'La Défense',
-      id: 'a5',
-      city: 'Paris',
-      price: 0),
-  Activity(
-      image: 'assets/images/activities/pompidou.jpg',
+    ),
+    Activity(
+        image: 'assets/images/activities/paris/chaumont.jpg',
+        name: 'Les buttes Chaumont',
+        id: 'p3',
+        city: 'Paris',
+        price: 0
+    ),
+    Activity(
+        image: 'assets/images/activities/paris/dame.jpg',
+        name: 'Notre Dame',
+        id: 'p4',
+        city: 'Paris',
+        price: 0
+    ),
+    Activity(
+        image: 'assets/images/activities/paris/defense.jpg',
+        name: 'La Défense',
+        id: 'p5',
+        city: 'Paris',
+        price: 0
+    ),
+    Activity(
+      image: 'assets/images/activities/paris/pompidou.ppg',
       name: 'Le Centre Pompidou',
-      id: 'a6',
+      id: 'p6',
       city: 'Paris',
       price: 18.00,
-  ),
-  Activity(
-      image: 'assets/images/activities/moulin-rouge.jpg',
+    ),
+    Activity(
+      image: 'assets/images/activities/paris/moulin-rouge.jpg',
       name: 'Le Moulin Rouge',
-      id: 'a7',
+      id: 'p7',
       city: 'Paris',
       price: 75.00,
-  ),
-  Activity(
-      image: 'assets/images/activities/montmartre.jpg',
+    ),
+    Activity(
+      image: 'assets/images/activities/paris/montmartre.jpg',
       name: 'Montmartre',
-      id: 'a8',
+      id: 'p8',
       city: 'Paris',
       price: 0,
-  ),
-  Activity(
-      image: 'assets/images/activities/marais.jpg',
+    ),
+    Activity(
+      image: 'assets/images/activities/paris/marais.jpg',
       name: 'Le Marais',
-      id: 'a9',
+      id: 'p9',
       city: 'Paris',
       price: 0,
-  ),
-  Activity(
-      image: 'assets/images/activities/grevin.jpg',
+    ),
+    Activity(
+      image: 'assets/images/activities/paris/grevin.jpg',
       name: 'Le musée Grévin',
-      id: 'a10',
+      id: 'p10',
       city: 'Paris',
       price: 15.99,
-  ),
-  Activity(
-      image: 'assets/images/activities/catacombes.jpg',
+    ),
+    Activity(
+      image: 'assets/images/activities/paris/catacombes.jpg',
       name: 'Les Catacombes de Paris',
-      id: 'a11',
+      id: 'p11',
       city: 'Paris',
       price: 18.50,
-  ),
-  Activity(
-      image: 'assets/images/activities/bateaux-mouches.jpg',
+    ),
+    Activity(
+      image: 'assets/images/activities/paris/bateaux-mouches.jpg',
       name: 'Les Bateaux-Mouches',
-      id: 'a12',
+      id: 'p12',
       city: 'Paris',
       price: 32.00,
-  ),
-  Activity(
-      image: 'assets/images/activities/atelier-des-chefs.jpg',
+    ),
+    Activity(
+      image: 'assets/images/activities/paris/atelier-des-chefs.jpg',
       name: "L'atelier des Chefs",
-      id: 'a13',
+      id: 'p13',
       city: 'Paris',
       price: 22.40,
-  ),
-  Activity(
-      image: 'assets/images/activities/garnier.jpg',
+    ),
+    Activity(
+      image: 'assets/images/activities/paris/garnier.jpg',
       name: "Le palais Garnier",
-      id: 'a14',
+      id: 'p14',
       city: 'Paris',
       price: 0,
-  ),
+    ),
+  ]),
 ];

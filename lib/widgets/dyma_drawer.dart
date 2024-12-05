@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../views/trips/trips_view.dart';
 import '../views/home/home_view.dart';
 
 class DymaDrawer extends StatelessWidget {
@@ -38,9 +39,10 @@ class DymaDrawer extends StatelessWidget {
             leading: Icon(Icons.flight),
             title: Text('Mes voyages'),
             onTap: () {
-
+              Navigator.pushNamed(context, TripsView.routeName);
             },
           ),
+
         ],
       ),
     );

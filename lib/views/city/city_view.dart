@@ -1,6 +1,5 @@
 import 'package:dyma_trip/widgets/dyma_drawer.dart';
 import 'package:flutter/material.dart';
-import '../../data/data.dart' as data;
 import '../../views/home/home_view.dart';
 import '../../views/city/widgets/trip_activity_list.dart';
 import '../../models/city_model.dart';
@@ -11,10 +10,18 @@ import '../../models/trip_model.dart';
 
 class CityView extends StatefulWidget {
   static const String routeName = '/city';
-  final List<Activity> activities = data.activities;
   final City city;
+  final Function addTrip;
 
-  CityView({super.key, required this.city});
+  List<Activity> get activities {
+    return city.activities;
+  }
+
+  CityView({
+    super.key,
+    required this.city,
+    required this.addTrip
+  });
 
   showContext({required BuildContext context, required List<Widget> children}) {
     final orientation = MediaQuery.of(context).orientation;
@@ -123,7 +130,10 @@ class _CityViewState extends State<CityView> {
         );
       },
     );
-    Navigator.pushNamed(context, HomeView.routeName);
+    if (result == 'save') {
+      widget.addTrip(myTrip);
+      Navigator.pushNamed(context, HomeView.routeName);
+    }
   }
 
   @override
