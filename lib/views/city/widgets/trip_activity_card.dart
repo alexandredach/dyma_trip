@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:dyma_trip/data/data.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/activity_model.dart';
@@ -64,6 +62,6 @@ class _TripActivityCardState extends State<TripActivityCard> {
           },
         ),
       ),
-    );;
+    );
   }
 }

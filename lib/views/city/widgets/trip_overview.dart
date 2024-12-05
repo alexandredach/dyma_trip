@@ -31,12 +31,17 @@ class TripOverview extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            cityName,
-            style: TextStyle(
-                fontSize: 25,
-                decoration: TextDecoration.underline
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Les activités à $cityName',
+                style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.indigo,
+                ),
+              ),
+            ],
           ),
           const SizedBox(
               height: 30

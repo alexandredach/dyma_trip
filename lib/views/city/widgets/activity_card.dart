@@ -4,7 +4,7 @@ import '../../../models/activity_model.dart';
 class ActivityCard extends StatelessWidget {
   final Activity activity;
   final bool isSelected;
-  final toggleActivity;
+  final Function toggleActivity;
 
   const ActivityCard({
     super.key,
@@ -22,11 +22,19 @@ class ActivityCard extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Ink.image(
-            image: AssetImage(activity.image),
-            fit: BoxFit.cover,
-            child: InkWell(
-              onTap: toggleActivity,
+          // Image bottom black fade for activity name
+          Container(
+            width: double.infinity,
+            height: 400,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.center,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.transparent, // Transparency begins
+                  Colors.black.withOpacity(0.8), // Transparency opacity
+                ],
+              ),
             ),
           ),
           Container(
@@ -64,7 +72,14 @@ class ActivityCard extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
+          Ink.image(
+            image: AssetImage(activity.image),
+            fit: BoxFit.cover,
+            child: InkWell(
+              onTap: toggleActivity as GestureTapCallback,
+            ),
+          ),
         ],
       )
 

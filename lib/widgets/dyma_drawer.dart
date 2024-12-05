@@ -12,10 +12,6 @@ class DymaDrawer extends StatelessWidget {
       child: ListView(
         children: [
           DrawerHeader(
-            child: Text(
-              'Dymatrip',
-              style: TextStyle(color: Colors.white, fontSize: 30),
-            ),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -26,18 +22,22 @@ class DymaDrawer extends StatelessWidget {
                 end: Alignment.bottomRight,
               ),
             ),
+            child: const Text(
+              'Dymatrip',
+              style: TextStyle(color: Colors.white, fontSize: 30),
+            ),
           ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Accueil'),
+            leading: const Icon(Icons.home),
+            title: const Text('Accueil'),
             onTap: () {
               Navigator.pushNamed(context, HomeView.routeName);
             },
           ),
           // Divider(color: Colors.blueGrey,),
           ListTile(
-            leading: Icon(Icons.flight),
-            title: Text('Mes voyages'),
+            leading: const Icon(Icons.flight),
+            title: const Text('Mes voyages'),
             onTap: () {
               Navigator.pushNamed(context, TripsView.routeName);
             },

@@ -7,7 +7,11 @@ class TripActivityList extends StatelessWidget {
   final List<Activity> activities;
   final Function deleteTripActivity;
 
-  TripActivityList({super.key, required this.activities, required this.deleteTripActivity });
+  const TripActivityList({
+    super.key,
+    required this.activities,
+    required this.deleteTripActivity
+  });
 
   @override
   Widget build(BuildContext context) {

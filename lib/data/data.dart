@@ -1,5 +1,3 @@
-import 'package:dyma_trip/views/city/city_view.dart';
-
 import '../models/activity_model.dart';
 import '../models/city_model.dart';
 
@@ -185,7 +183,7 @@ List<City> cities = [
         price: 0
     ),
     Activity(
-      image: 'assets/images/activities/paris/pompidou.ppg',
+      image: 'assets/images/activities/paris/pompidou.jpg',
       name: 'Le Centre Pompidou',
       id: 'p6',
       city: 'Paris',

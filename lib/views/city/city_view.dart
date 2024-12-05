@@ -17,7 +17,7 @@ class CityView extends StatefulWidget {
     return city.activities;
   }
 
-  CityView({
+  const CityView({
     super.key,
     required this.city,
     required this.addTrip
@@ -48,28 +48,21 @@ class _CityViewState extends State<CityView> {
   void initState() {
     super.initState();
     index = 0;
-    myTrip = Trip(activities: [], city: 'Paris', date: null);
-  }
-
-  List<Activity> get tripActivities {
-    return widget.activities
-        .where((activity) => myTrip.activities.contains(activity.id))
-        .toList();
+    myTrip = Trip(activities: [], city: widget.city.name, date: null);
   }
 
   double get amount {
     return myTrip.activities.fold(0.0, (prev, element) {
-      final activity = widget.activities.firstWhere((activity) => activity.id == element);
-      return prev + activity.price;
+      return prev + element.price;
     });
   }
 
   void setDate() {
     showDatePicker(
         context: context,
-        initialDate: DateTime.now().add(Duration(days: 1)),
+        initialDate: DateTime.now().add(const Duration(days: 1)),
         firstDate:  DateTime.now(),
-        lastDate: DateTime.now().add(Duration(days: 365))
+        lastDate: DateTime.now().add(const Duration(days: 365))
     ).then((newDate) {
       if(newDate != null) {
         setState(() {
@@ -85,17 +78,17 @@ class _CityViewState extends State<CityView> {
     });
   }
 
-  void toggleActivity(String id) {
+  void toggleActivity(Activity activity) {
     setState(() {
-      myTrip.activities.contains(id)
-          ? myTrip.activities.remove(id)
-          : myTrip.activities.add(id);
+      myTrip.activities.contains(activity)
+          ? myTrip.activities.remove(activity)
+          : myTrip.activities.add(activity);
     });
   }
 
-  void deleteTripActivity(String id) {
+  void deleteTripActivity(Activity activity) {
     setState(() {
-      myTrip.activities.remove(id);
+      myTrip.activities.remove(activity);
     });
   }
 
@@ -104,8 +97,8 @@ class _CityViewState extends State<CityView> {
       context: context,
       builder: (context) {
         return SimpleDialog(
-          title: Text('Voulez-vous enregistrer ces activités ?'),
-          contentPadding: EdgeInsets.all(20),
+          title: const Text('Voulez-vous enregistrer ces activités ?'),
+          contentPadding: const EdgeInsets.all(20),
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -114,15 +107,15 @@ class _CityViewState extends State<CityView> {
                   onPressed: () {
                     Navigator.pop(context, 'save');
                   },
-                  child: const Text('Enregistrer', style: TextStyle(color: Colors.white),),
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                  child: const Text('Enregistrer', style: TextStyle(color: Colors.white),),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context, 'cancel');
                   },
-                  child: const Text('Annuler', style: TextStyle(color: Colors.white),),
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+                  child: const Text('Annuler', style: TextStyle(color: Colors.white),),
                 ),
               ],
             )
@@ -130,7 +123,25 @@ class _CityViewState extends State<CityView> {
         );
       },
     );
-    if (result == 'save') {
+    if (myTrip.date == null) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('ATTENTION'),
+            content: const Text('Mettez le choix dans la date !'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('OK')
+              ),
+            ],
+          );
+        }
+      );
+    } else if (result == 'save') {
       widget.addTrip(myTrip);
       Navigator.pushNamed(context, HomeView.routeName);
     }
@@ -142,9 +153,9 @@ class _CityViewState extends State<CityView> {
       appBar: AppBar(
         // foregroundColor: Colors.white,
         // backgroundColor: Colors.lightBlue,
-        title: Text('Organisation du voyage'),
+        title: const Text('Organisation du voyage'),
       ),
-      drawer: DymaDrawer(),
+      drawer: const DymaDrawer(),
       body: Container(
         child: widget.showContext(
           context: context,
@@ -163,7 +174,7 @@ class _CityViewState extends State<CityView> {
                     toggleActivity: toggleActivity
                 )
                 : TripActivityList(
-                  activities: tripActivities,
+                  activities: myTrip.activities,
                   deleteTripActivity: deleteTripActivity,
                 ),
             ),
@@ -171,8 +182,8 @@ class _CityViewState extends State<CityView> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.directions_walk),
         onPressed: saveTrip,
+        child: const Icon(Icons.directions_walk),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,

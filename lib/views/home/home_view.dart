@@ -7,7 +7,7 @@ class HomeView extends StatefulWidget {
   static const String routeName = '/';
   final List<City> cities;
 
-  HomeView({super.key, required this.cities });
+  const HomeView({super.key, required this.cities });
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -22,9 +22,9 @@ class _HomeViewState extends State<HomeView> {
         backgroundColor: Colors.lightBlue,
         title: const Text('Dymatrip', style: TextStyle(color: Colors.white),) ,
       ),
-      drawer: DymaDrawer(),
+      drawer: const DymaDrawer(),
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

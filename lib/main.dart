@@ -1,6 +1,7 @@
-import 'package:dyma_trip/views/trips/trips_view.dart';
 import 'package:flutter/material.dart';
 import '../data/data.dart' as data;
+import '/views/trips/trips_view.dart';
+import '/views/trip/trip_view.dart';
 import '../models/city_model.dart';
 import '../views/404/not_found.dart';
 import '../views/city/city_view.dart';
@@ -21,13 +22,16 @@ class DymaTrip extends StatefulWidget {
 }
 
 class _DymaTripState extends State<DymaTrip> {
-  List<Trip> trips = [];
+  List<Trip> trips = [
+    Trip(city: 'Paris', activities: [], date: DateTime.now().add(const Duration(days: 15))),
+    Trip(city: 'Lyon', activities: [], date: DateTime.now().add(const Duration(days: 41))),
+    Trip(city: 'Nice', activities: [], date: DateTime.now().subtract(const Duration(days: 125))),
+  ];
 
   void addTrip(Trip trip) {
     setState(() {
       trips.add(trip);
     });
-    print(trips);
   }
 
   @override
@@ -65,11 +69,21 @@ class _DymaTripState extends State<DymaTrip> {
           }
           case TripsView.routeName: {
             return MaterialPageRoute(builder: (context) {
-              return TripsView();
+              return TripsView(trips: trips);
               }
             );
           }
-
+          case TripView.routeName: {
+            return MaterialPageRoute(builder: (context) {
+              String? tripId = (settings.arguments as Map<String, String>)['tripId'];
+              String? cityName = (settings.arguments as Map<String, String>)['cityName'];
+              return TripView(
+                  trip: trips.firstWhere((trip) => trip.id == tripId),
+                  city: widget.cities.firstWhere((city) => city.name == cityName),
+              );
+            }
+            );
+          }
         }
         return null;
       },
