@@ -1,3 +1,6 @@
+import 'package:dyma_trip/providers/city_provider.dart';
+import 'package:provider/provider.dart';
+
 import '../../widgets/dyma_drawer.dart';
 import 'package:flutter/material.dart';
 import 'widgets/city_card.dart';
@@ -16,6 +19,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
+    List<City> cities = Provider.of<CityProvider>(context).cities;
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.white,
@@ -27,13 +31,12 @@ class _HomeViewState extends State<HomeView> {
         padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ...widget.cities.map( (city) {
+          children: cities.map(
+            (city) {
               return CityCard(
                 city: city
               );
-            }),
-          ],
+          }).toList(),
         )
       ),
     );
