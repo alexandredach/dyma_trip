@@ -1,5 +1,7 @@
+import 'package:dyma_trip/providers/city_provider.dart';
 import 'package:dyma_trip/widgets/dyma_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../views/home/home_view.dart';
 import '../../views/city/widgets/trip_activity_list.dart';
 import '../../models/city_model.dart';
@@ -10,18 +12,7 @@ import '../../models/trip_model.dart';
 
 class CityView extends StatefulWidget {
   static const String routeName = '/city';
-  final City city;
   final Function addTrip;
-
-  List<Activity> get activities {
-    return city.activities;
-  }
-
-  const CityView({
-    super.key,
-    required this.city,
-    required this.addTrip
-  });
 
   showContext({required BuildContext context, required List<Widget> children}) {
     final orientation = MediaQuery.of(context).orientation;
@@ -48,7 +39,7 @@ class _CityViewState extends State<CityView> {
   void initState() {
     super.initState();
     index = 0;
-    myTrip = Trip(activities: [], city: widget.city.name, date: null);
+    myTrip = Trip(activities: [], city: null, date: null);
   }
 
   double get amount {
@@ -142,13 +133,15 @@ class _CityViewState extends State<CityView> {
         }
       );
     } else if (result == 'save') {
-      widget.addTrip(myTrip);
+      // widget.addTrip(myTrip);
       Navigator.pushNamed(context, HomeView.routeName);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    String cityName = ModalRoute.of(context).settings.arguments;
+    City city = Provider.of<CityProvider>(context).cities.firstWhere((city) => city.name == cityName);
     return Scaffold(
       appBar: AppBar(
         // foregroundColor: Colors.white,

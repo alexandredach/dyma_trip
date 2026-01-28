@@ -1,5 +1,6 @@
 import '../models/activity_model.dart';
 import '../models/city_model.dart';
+import '../models/trip_model.dart';
 
 List<City> cities = [
   City(name: 'Lyon', image: 'assets/images/lyon.jpg', activities: [
@@ -246,4 +247,38 @@ List<City> cities = [
       price: 0,
     ),
   ]),
+];
+List<Trip> trips = [
+  Trip(city: 'Paris', activities: [], date: DateTime.now().add(const Duration(days: 15))),
+  Trip(city: 'Lyon', activities: [
+    Activity(
+      image: 'assets/images/activities/lyon/notre-dame-fourviere.jpg',
+      name: 'Basilique Notre-Dame de Fourvière',
+      id: 'l1',
+      city: 'Lyon',
+      price: 0,
+    ),
+    Activity(
+      image: 'assets/images/activities/lyon/traboules.jpg',
+      name: 'Le Vieux Lyon et ses traboules',
+      id: 'l2',
+      city: 'Lyon',
+      price: 0,
+    ),
+    Activity(
+      image: 'assets/images/activities/lyon/musee-confluences.jpg',
+      name: 'Musée des Confluences',
+      id: 'l3',
+      city: 'Lyon',
+      price: 9.00,
+    ),
+    Activity(
+      image: 'assets/images/activities/lyon/parc-tete-or.jpg',
+      name: 'Parc de la Tête d’Or',
+      id: 'l4',
+      city: 'Lyon',
+      price: 0,
+    ),
+  ], date: DateTime.now().add(const Duration(days: 41))),
+  Trip(city: 'Nice', activities: [], date: DateTime.now().subtract(const Duration(days: 125))),
 ];

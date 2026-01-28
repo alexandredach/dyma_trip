@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
-
+import 'package:flutter/material.dart';
 import '/models/activity_model.dart';
 
 class Trip {
-  String id;
-  String city;
+  String? id;
+  String? city;
   List<Activity> activities;
   DateTime? date;
 
